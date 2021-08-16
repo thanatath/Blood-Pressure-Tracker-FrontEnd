@@ -5,6 +5,8 @@ Blood Pressure Tracker System Backend Development By Vuejs
 
 ![enter image description here](https://raw.githubusercontent.com/thanatath/Blood-Pressure-Tracker-FrontEnd/main/Screenshot.jpg)
 
+**Use ENV for Configuration
+
 ## Project setup
 ```
 npm install
