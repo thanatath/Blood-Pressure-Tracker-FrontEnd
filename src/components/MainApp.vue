@@ -51,7 +51,7 @@
           </div>
           <ul v-for="allRecord in allRecord.data" :key="allRecord.data" class="list-group list-group-flush">
              
-             <center><li class="list-group-item"><span style="color:red">TOP:</span> {{allRecord.top}} <span style="color:blue">Buttom:</span>  {{allRecord.buttom}} <span style="color:Green">Time:</span> {{allRecord.time}}</li></center>
+             <center><li class="list-group-item"><span style="color:red">TOP:</span> {{allRecord.top}} <span style="color:blue">Buttom:</span>  {{allRecord.buttom}} <span style="color:Green">Time:</span> {{allRecord.time}} <button @click="delData(allRecord.id)" style="margin-left:35px;" type="button" class="btn btn-danger btn-sm">Delete</button> </li> </center>
             
           </ul>
         </div>
@@ -92,6 +92,19 @@ export default {
             this.$alert('Save Blood Data Complete.');
           } else {
             this.$alert('Save Blood Data Not Complete.');
+          }
+          (this.top = ''), (this.buttom = '');
+        });
+        this.getData()
+    },
+    delData(delId){
+      axios
+        .get("http://"+process.env.VUE_APP_BACKENDHOST+":"+process.env.VUE_APP_BACKENDPORT+'/del?idBlood=' + delId)
+        .then((response) => {
+          if (response.data == 'OK') {
+            this.$alert('Delete Blood Data Complete.');
+          } else {
+            this.$alert('Delete Blood Data Not Complete.');
           }
           (this.top = ''), (this.buttom = '');
         });
