@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="row">
-      <div class="col-sm-6">
+      <div class="col-sm-4">
         <div class="input-group mb-3">
           <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">TOP</span>
+            <span class="input-group-text" id="basic-addon1"><i style="margin-right:7px" class="fa fa-bolt" aria-hidden="true"></i>TOP</span>
           </div>
           <input
             v-model="top"
@@ -16,10 +16,10 @@
           />
         </div>
       </div>
-      <div class="col-sm-6">
+      <div class="col-sm-4">
         <div class="input-group mb-3">
           <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">Buttom</span>
+            <span class="input-group-text" id="basic-addon1"><i style="margin-right:7px" class="fa fa-hourglass-end" aria-hidden="true"></i>Buttom</span>
           </div>
           <input
             v-model="buttom"
@@ -27,6 +27,21 @@
             class="form-control"
             placeholder="Buttom"
             aria-label="Buttom"
+            aria-describedby="basic-addon1"
+          />
+        </div>
+      </div>
+            <div class="col-sm-4">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"><i style="margin-right:7px" class="fa fa-heartbeat" aria-hidden="true"></i> HeartRate</span>
+          </div>
+          <input
+            v-model="heartRate"
+            type="text"
+            class="form-control"
+            placeholder="HeartRate"
+            aria-label="HeartRate"
             aria-describedby="basic-addon1"
           />
         </div>
@@ -51,7 +66,7 @@
           </div>
           <ul v-for="allRecord in allRecord.data" :key="allRecord.data" class="list-group list-group-flush">
              
-             <center><li class="list-group-item"><span style="color:red">TOP:</span> {{allRecord.top}} <span style="color:blue">Buttom:</span>  {{allRecord.buttom}} <span style="color:Green">Time:</span> {{allRecord.time}} <button @click="delData(allRecord.id)" style="margin-left:35px;" type="button" class="btn btn-danger btn-sm">Delete</button> </li> </center>
+             <center><li class="list-group-item"><i style="margin-right:7px" class="fa fa-bolt" aria-hidden="true"></i> {{allRecord.top}} <i style="margin-right:7px;margin-left:19px" class="fa fa-hourglass-end" aria-hidden="true"></i>  {{allRecord.buttom}} <i style="margin-right:7px;margin-left:19px" class="fa fa-heartbeat" aria-hidden="true"></i>  {{allRecord.heartrate}}  <i style="margin-right:7px;margin-left:19px" class="fa fa-calendar" aria-hidden="true"></i> {{allRecord.time}}  <button @click="delData(allRecord.id)" style="margin-left:35px;;margin-left:19px" type="button" class="btn btn-danger btn-sm">Delete</button> </li> </center>
             
           </ul>
         </div>
@@ -70,6 +85,7 @@ export default {
       top: '',
       buttom: '',
       allRecord:'',
+      heartRate:'',
 
     };
   },
@@ -82,11 +98,11 @@ export default {
           
     ,
     checkdata() {
-      return !(parseInt(this.top) > 0 && parseInt(this.buttom) > 0);
+      return !(parseInt(this.top) > 0 && parseInt(this.buttom) > 0 && parseInt(this.heartRate) > 0);
     },
     sendData() {
       axios
-        .get("http://"+process.env.VUE_APP_BACKENDHOST+":"+process.env.VUE_APP_BACKENDPORT+'?top=' + this.top + '&buttom=' + this.buttom)
+        .get("http://"+process.env.VUE_APP_BACKENDHOST+":"+process.env.VUE_APP_BACKENDPORT+'?top=' + this.top + '&buttom=' + this.buttom+ '&heartrate=' + this.heartRate)
         .then((response) => {
           if (response.data == 'OK') {
             this.$alert('Save Blood Data Complete.');
